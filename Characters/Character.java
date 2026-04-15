@@ -6,6 +6,16 @@ import Game.Game;
 public abstract class Character implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Character constructor
+     * @param name
+     * @param desc
+     * @param balance of the playe
+     * @param Moveset
+     * @param skillpoints
+     * @param stat
+     * @param exp STARTING EXP
+     */
     public Character(String name, String desc, double balance, Moveset moveset, int skillPoints, Stats stat, int exp,
             int level) {
         this.name = name;
@@ -24,6 +34,10 @@ public abstract class Character implements Serializable {
      * Real functionality
      */
 
+    /**
+     * Find the amount of moves based on speed 
+     * @return
+     */
     public int getActionCount() {
         int spd = this.stat.SPD;
 
@@ -35,19 +49,32 @@ public abstract class Character implements Serializable {
             return 1;
         }
     }
+
+    /**
+     * Gain_xp function so I can set a it better
+     * @param amount
+     * @return
+     */
     public int gain_xp(int amount) {
         int levels = 0;
         this.exp += amount;
-        int levelUpThreshold = (int) Math
-                .round((BASE_XP + 40 * (this.level - 1)) * Math.pow(1 + XP_GROWTH_RATE, this.level - 1));
-        if (this.exp >= levelUpThreshold) {
+        // (50 + 40n)(1.02^n) where n = level - 1
+        // (BASE_XP + 40 * (this.level - 1) * Math.pow(1 + XP_GROWTH_RATE, this.level - 1))
+        int levelUpThreshold = (int) Math.round((BASE_XP + 40 * (this.level - 1)) * Math.pow(1 + XP_GROWTH_RATE, this.level - 1));
+        
+        // Leveling up
+        while (this.exp >= levelUpThreshold) {
             levels++;
             this.exp -= levelUpThreshold;
         }
         this.level += levels;
         return levels;
     }
-
+    
+    /**
+     * The api on getting hit
+     * @param damage
+     */
     public void getHit(int damage) {
         this.health -= damage;
         if (this.health < 0) {
@@ -56,6 +83,12 @@ public abstract class Character implements Serializable {
         }
     }
 
+    /**
+     * The API for attacking another character.
+     * @param target, another character to attack
+     * @param move, The index of moves
+     * @return
+     */
     public int hit(Character target, int move) {
         Skill skill = this.moveset.getSkill(move);
         int spCost = skill.getSkillPoints();
@@ -80,6 +113,11 @@ public abstract class Character implements Serializable {
         return cost < 0 || this.skillPoints >= cost;   // negative cost = always allowed
     }
 
+    /**
+     * A virtual function for turn
+     * @param game
+     * @param target
+     */
     public abstract void turn(Game game, Character target);
 
     /*
@@ -146,9 +184,9 @@ public abstract class Character implements Serializable {
     protected boolean isAlive;
 
     // Constants
-    public static int MAX_LEVEL = 100;
-    public static int MAX_SP = 7;
-    public static int BASE_XP = 50;
-    public static double XP_GROWTH_RATE = 0.02;
+    public final static int MAX_LEVEL = 100;
+    public final static int MAX_SP = 7;
+    public final static int BASE_XP = 50;
+    public final static double XP_GROWTH_RATE = 0.02;
 
 }

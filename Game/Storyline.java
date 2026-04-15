@@ -11,6 +11,10 @@ public class Storyline implements Serializable {
     private final ArrayList<String> Events;
     private int current;
 
+    /**
+     * Storyline constructor
+     * @param path
+     */
     public Storyline(String path) {
         Events = new ArrayList<>();
         current = 0;
@@ -32,7 +36,10 @@ public class Storyline implements Serializable {
         }
     }
 
-
+    /**
+     * Get the storyline based on this.event
+     * @return
+     */
     public String getCurrentEvent() {
         if (current < 0 || current >= Events.size()) {
             return "No more events.";
@@ -40,6 +47,11 @@ public class Storyline implements Serializable {
         return Events.get(current);
     }
 
+
+    /**
+     * Next events
+     * @return
+     */
     public String nextEvent() {
         if (current + 1 >= Events.size()) {
             return "No more events.";

@@ -17,7 +17,19 @@ public class Enemy extends Character {
     public final int goldDrop;
     public final int xpDrop;
     
-
+    /**
+     * Ez enemy constructor
+     * @param name
+     * @param desc
+     * @param balance
+     * @param moveset
+     * @param skillPoints
+     * @param stat
+     * @param exp
+     * @param level
+     * @param goldDrop
+     * @param xpDrop
+     */
     public Enemy(String name, String desc, double balance, Moveset moveset, 
              int skillPoints, Stats stat, int exp, int level, int goldDrop, int xpDrop) {
                 super(name, desc, balance, moveset, skillPoints, stat, exp, level);
@@ -25,6 +37,9 @@ public class Enemy extends Character {
                 this.xpDrop = xpDrop;
             }
 
+    /**
+     * Implements the turn using simple AI
+     */
     @Override
     public void turn(Game game, Character target) {
         // Simple AI: choose a random available move

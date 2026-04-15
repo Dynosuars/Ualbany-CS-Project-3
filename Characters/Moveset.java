@@ -34,12 +34,18 @@ public class Moveset implements Serializable {
         return this.moves.length;
     }
 
+    /**
+     * Base movesets
+     */
     public static final Moveset baseMoveset = new Moveset(
             new Skill("Normal", -1, 0), // Basic attack
             new Skill("Heavy", 1, 1), // Heavy attack
             new Skill("Special", 3, 2) // Special attack
     );
 
+    /**
+     * Getters
+     */
     public void setSkill(int index, Skill skill) {
         if (index >= 0 && index < moves.length) {
             moves[index] = skill;

@@ -60,8 +60,12 @@ public class Skill implements Serializable {
         } else {
             this.func = recreateCustomFunc();
         }
-    }
+    } 
 
+    /**
+     * Read bin file and recreates the function, function is really SHIT at being stored
+     * @return
+     */
     private BiFunction<Character, Character, Double> recreateCustomFunc() {
         if ("Normal ATK".equals(name)) {
             return (user, target) -> 100 + user.stat.ATK * 0.5;

@@ -21,7 +21,7 @@ public class Main {
 
         Game game;
 
-        if (options == 0) { // New Game
+        if (options == 0) { // New Game and tutorial
             String playerName;
             do {
                 playerName = JOptionPane.showInputDialog(null,
@@ -101,7 +101,7 @@ public class Main {
                 System.exit(0);
             }
 
-        } else { // Load Game
+        } else { // Load Game and a save point
             game = new Game(storyline, null, null);
             game.load(saveFileBIN);
 
